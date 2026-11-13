@@ -20,3 +20,6 @@ Explique o caminho navegador → Function → Gemini → validação Zod → int
 
 ## Formulário GenAI
 O repositório pode servir como evidência de desenvolvimento assistido por IA, integração real de API de LLM, experimentação exploratória de prompts, validação de JSON e testes. As alternativas exatas do formulário devem ser conferidas no próprio formulário; elas não foram verificadas nesta missão.
+
+## GitHub
+Repositório privado criado em https://github.com/LuanGabriel12/ai-planning-reviewer e código enviado na branch main em 13/11/2026. Antes do envio, foram verificados os 34 arquivos do primeiro commit contra a chave local, sem encontrá-la; o arquivo .dev.vars permanece ignorado. Visibilidade Private e arquivos foram conferidos na interface do GitHub. Não houve publicação pública.

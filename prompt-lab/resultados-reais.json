@@ -1,0 +1,119 @@
+[
+  {
+    "versao": 1,
+    "caso": "ciencias",
+    "data": "2026-11-13T14:25:48.612Z",
+    "modelo": "gemini-3.5-flash-lite",
+    "temperatura": 0.3,
+    "http": 200,
+    "resposta": {
+      "pontosFortes": [
+        "O objetivo é claro e alinhado com a BNCC para o 6º ano.",
+        "A utilização de experimentos práticos facilita a visualização e a compreensão de conceitos abstratos.",
+        "A avaliação combina um produto visual (desenho) com uma verificação oral individual, o que permite avaliar a compreensão de forma mais abrangente."
+      ],
+      "inconsistencias": [
+        "O experimento mencionado foca apenas na evaporação, mas o ciclo da água envolve outras etapas fundamentais como condensação e precipitação que poderiam ser contempladas na prática.",
+        "A explicação individual para toda a turma pode ser inviável dependendo do tempo da aula e do número de alunos."
+      ],
+      "sugestoes": [
+        "Expandir o experimento simples para incluir a condensação e a precipitação, como o modelo do ciclo da água em saco plástico fixado na janela.",
+        "Substituir a explicação totalmente individual por uma rubrica de avaliação formativa baseada no desenho e na apresentação breve do grupo, complementada por um registro escrito rápido (como um bilhete de saída)."
+      ]
+    },
+    "finishReason": "STOP"
+  },
+  {
+    "versao": 2,
+    "caso": "ciencias",
+    "data": "2026-11-13T14:25:50.394Z",
+    "modelo": "gemini-3.5-flash-lite",
+    "temperatura": 0.3,
+    "http": 200,
+    "resposta": {
+      "pontosFortes": [
+        "Alinhamento claro entre o objetivo de identificar as etapas do ciclo da água e as atividades propostas.",
+        "Uso de atividades práticas e visuais (experimento e desenho) adequadas para o 6º ano do ensino fundamental.",
+        "Avaliação formativa que combina o registro visual com a explicação oral individual, garantindo a compreensão real do aluno."
+      ],
+      "inconsistencias": [
+        "A relação do ciclo da água com 'situações cotidianas' (presente no objetivo) não está explicitamente abordada nem na atividade prática nem na avaliação."
+      ],
+      "sugestoes": [
+        "Incluir na atividade prática ou na discussão uma pergunta sobre como o experimento se conecta com fenômenos do dia a dia, como a formação de chuva ou a secagem de roupas.",
+        "Adicionar um momento de socialização onde os grupos possam explicar suas representações para a turma antes da avaliação individual."
+      ]
+    },
+    "finishReason": "STOP"
+  },
+  {
+    "versao": 3,
+    "caso": "ciencias",
+    "data": "2026-11-13T14:26:00.282Z",
+    "modelo": "gemini-3.5-flash-lite",
+    "temperatura": 0.3,
+    "http": 200,
+    "resposta": {
+      "pontosFortes": [
+        "O objetivo de identificar as etapas do ciclo da água e relacioná-las ao cotidiano está claro.",
+        "As atividades combinam observação prática por meio de um experimento com representação visual via desenho.",
+        "A avaliação contempla tanto o produto visual quanto a explicação individual para verificar a compreensão."
+      ],
+      "inconsistencias": [
+        "Não há detalhamento sobre quanto tempo será dedicado ao experimento e à produção dos desenhos, gerando incerteza sobre a viabilidade do tempo de aula.",
+        "A descrição da avaliação menciona que será solicitada uma explicação individual, mas não especifica critérios claros para essa verificação."
+      ],
+      "sugestoes": [
+        "Vincular a explicação individual a uma rubrica ou lista de verificação alinhada diretamente aos objetivos de aprendizagem.",
+        "Especificar o tempo estimado para cada etapa da aula para garantir que todas as equipes consigam concluir o experimento e o desenho."
+      ]
+    },
+    "finishReason": "STOP"
+  },
+  {
+    "versao": 3,
+    "caso": "desalinhamento",
+    "data": "2026-11-13T14:26:01.595Z",
+    "modelo": "gemini-3.5-flash-lite",
+    "temperatura": 0.3,
+    "http": 200,
+    "resposta": {
+      "pontosFortes": [
+        "O objetivo de interpretar e comparar frações em situações concretas está claramente definido para o 7º ano."
+      ],
+      "inconsistencias": [
+        "A atividade proposta resume-se a uma exposição oral, o que pode não contemplar a exigência de situações concretas mencionada nos objetivos.",
+        "A avaliação solicitada (redação sobre a história do Brasil) não apresenta alinhamento evidente com o objetivo de aprendizagem em Matemática básica."
+      ],
+      "sugestoes": [
+        "Conectar a atividade prática a manipulação de materiais concretos ou resolução de problemas do cotidiano para atender melhor ao objetivo de frações.",
+        "Ajustar o instrumento de avaliação para que verifique a habilidade de interpretar e comparar frações, como a resolução de problemas práticos ou justificativas escritas sobre frações, em vez de um tema histórico."
+      ]
+    },
+    "finishReason": "STOP"
+  },
+  {
+    "versao": 3,
+    "caso": "informacao-insuficiente",
+    "data": "2026-11-13T14:26:03.453Z",
+    "modelo": "gemini-3.5-flash-lite",
+    "temperatura": 0.3,
+    "http": 200,
+    "resposta": {
+      "pontosFortes": [
+        "A disciplina de Língua Portuguesa e o público-alvo (8º ano do ensino fundamental) estão explicitamente definidos."
+      ],
+      "inconsistencias": [
+        "O objetivo de melhorar a leitura da turma durante o ano letivo é amplo e não especifica quais gêneros textuais ou habilidades de leitura serão trabalhados.",
+        "A descrição das atividades é vaga e não detalha os procedimentos pedagógicos adotados em sala de aula.",
+        "O método de avaliação é genérico e não indica quais critérios ou instrumentos específicos serão usados para medir o desenvolvimento."
+      ],
+      "sugestoes": [
+        "Detalhar o objetivo de leitura especificando tipos de textos e habilidades esperadas para o 8º ano.",
+        "Descrever com mais clareza as etapas e os materiais utilizados nas atividades de leitura em sala de aula.",
+        "Vincular a avaliação a critérios claros e mensuráveis que reflitam o objetivo proposto."
+      ]
+    },
+    "finishReason": "STOP"
+  }
+]

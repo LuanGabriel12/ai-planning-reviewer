@@ -1,0 +1,179 @@
+{
+  "criterios": [
+    "formato",
+    "clareza",
+    "utilidade",
+    "lacunas",
+    "ausência de invenções",
+    "consistência"
+  ],
+  "exemplos": {
+    "A": {
+      "disciplina": "Ciências da Natureza",
+      "ano": "6º ano do ensino fundamental",
+      "objetivos": "Identificar evaporação e condensação e explicar como elas participam do ciclo da água.",
+      "atividades": "Em grupos, observar água morna em recipiente transparente e registrar a formação de gotículas, relacionando a observação a um diagrama do ciclo.",
+      "avaliacao": "Solicitar um diagrama individual e uma explicação curta; observar identificação das etapas e relação entre mudança de estado e ciclo."
+    },
+    "B": {
+      "disciplina": "Matemática básica",
+      "ano": "7º ano do ensino fundamental",
+      "objetivos": "Melhorar a matemática, aprender coisas e ficar pronto para o futuro.",
+      "atividades": "Professor fala sobre números e alunos fazem alguma atividade em grupo.",
+      "avaliacao": "Observar participação da turma sem critérios ou instrumentos especificados."
+    }
+  },
+  "resultados": [
+    {
+      "versao": "V1",
+      "exemplo": "A",
+      "modelo": "gemini-3.5-flash-lite",
+      "data": "2026-11-13T14:30:33.216Z",
+      "latencia_ms": 1793,
+      "http": 200,
+      "json_valido": true,
+      "resposta": {
+        "pontosFortes": [
+          "Uso de atividade prática e observável para fenômenos abstratos.",
+          "Conexão clara entre a observação empírica e a representação esquemática (diagrama).",
+          "Instrumento de avaliação coerente com os objetivos propostos."
+        ],
+        "inconsistencias": [
+          "O uso de água morna pode gerar condensação rapidamente, mas é importante garantir que o recipiente seja tampado para simular o ciclo fechado.",
+          "Faltou explicitar o tempo estimado para a realização da atividade."
+        ],
+        "sugestoes": [
+          "Incluir uma etapa onde os alunos comparem o experimento com o ciclo da água na natureza em maior escala.",
+          "Adicionar perguntas norteadoras para guiar a observação dos grupos durante a atividade prática.",
+          "Propor que os alunos registrem as etapas do experimento utilizando termos científicos corretos."
+        ]
+      },
+      "finalizacao": "STOP"
+    },
+    {
+      "versao": "V1",
+      "exemplo": "B",
+      "modelo": "gemini-3.5-flash-lite",
+      "data": "2026-11-13T14:30:35.011Z",
+      "latencia_ms": 1413,
+      "http": 200,
+      "json_valido": true,
+      "resposta": {
+        "pontosFortes": [
+          "Aborda a disciplina fundamental de Matemática Básica para o 7º ano.",
+          "Inclui momentos de interação através de atividades em grupo."
+        ],
+        "inconsistencias": [
+          "Os objetivos são vagos e genéricos, sem especificar quais conteúdos matemáticos serão trabalhados.",
+          "A descrição das atividades é superficial, não detalhando o papel do aluno ou os recursos utilizados.",
+          "O método de avaliação é subjetivo e carece de critérios claros ou instrumentos definidos."
+        ],
+        "sugestoes": [
+          "Definir objetivos específicos alinhados à BNCC para o 7º ano, como operações com números racionais ou introdução à álgebra.",
+          "Detalhar o passo a passo da metodologia, especificando o tempo de exposição teórica e a dinâmica do trabalho em grupo.",
+          "Criar instrumentos de avaliação formativa e somativa, como rubricas de participação, listas de exercícios ou testes rápidos."
+        ]
+      },
+      "finalizacao": "STOP"
+    },
+    {
+      "versao": "V2",
+      "exemplo": "A",
+      "modelo": "gemini-3.5-flash-lite",
+      "data": "2026-11-13T14:30:36.426Z",
+      "latencia_ms": 1466,
+      "http": 200,
+      "json_valido": true,
+      "resposta": {
+        "pontosFortes": [
+          "Alinhamento claro entre os objetivos de aprendizagem, a atividade prática de observação e o método de avaliação.",
+          "Uso de recursos visuais e materiais concretos (recipiente transparente com água morna e diagrama) para facilitar a compreensão de conceitos abstratos.",
+          "Estímulo ao trabalho em grupo na etapa de investigação e registro individual na avaliação."
+        ],
+        "inconsistencias": [
+          "A atividade utiliza apenas água morna para demonstrar evaporação e condensação, mas não explicita o processo de aquecimento e resfriamento necessário para completar o ciclo da água de forma visível aos alunos."
+        ],
+        "sugestoes": [
+          "Incluir uma etapa onde os alunos possam observar o resfriamento da tampa ou superfície superior do recipiente para evidenciar com mais clareza a condensação.",
+          "Adicionar questões norteadoras durante o trabalho em grupo para guiar a reflexão sobre de onde veio o vapor e para onde vão as gotículas."
+        ]
+      },
+      "finalizacao": "STOP"
+    },
+    {
+      "versao": "V2",
+      "exemplo": "B",
+      "modelo": "gemini-3.5-flash-lite",
+      "data": "2026-11-13T14:30:37.892Z",
+      "latencia_ms": 1147,
+      "http": 200,
+      "json_valido": true,
+      "resposta": {
+        "pontosFortes": [
+          "Aulas expositivas e trabalho em grupo previstos nas atividades",
+          "Inclusao de avaliacao formativa baseada na participacao"
+        ],
+        "inconsistencias": [
+          "Objetivos vagos e genericos sem conexao com conteudos especificos do 7 ano",
+          "Atividades descritas de forma superficial sem especificar o tema da aula",
+          "Avaliacao sem criterios claros ou instrumentos de medida definidos"
+        ],
+        "sugestoes": [
+          "Tornar os objetivos mais especificos de acordo com a Base Nacional Comum Curricular para o 7 ano",
+          "Detalhar a dinamica do trabalho em grupo e o conteudo da exposicao do professor",
+          "Criar uma rubrica ou checklist para tornar a avaliacao mais objetiva e transparente"
+        ]
+      },
+      "finalizacao": "STOP"
+    },
+    {
+      "versao": "V3",
+      "exemplo": "A",
+      "modelo": "gemini-3.5-flash-lite",
+      "data": "2026-11-13T14:30:39.040Z",
+      "latencia_ms": 1236,
+      "http": 200,
+      "json_valido": true,
+      "resposta": {
+        "pontosFortes": [
+          "A atividade prática com recipientes transparentes favorece a visualização direta da evaporação e da condensação.",
+          "Os objetivos estão alinhados com a atividade proposta e com o método de avaliação baseado na criação de diagramas e explicações curtas."
+        ],
+        "inconsistencias": [
+          "O planejamento não especifica o tempo de duração da atividade nem os materiais exatos necessários além do recipiente e da água morna."
+        ],
+        "sugestoes": [
+          "Conectar a observação empírica das gotículas de forma mais explícita com os critérios de correção do diagrama individual na avaliação.",
+          "Indicar um tempo estimado para a realização da atividade em grupo e para a entrega da explicação curta."
+        ]
+      },
+      "finalizacao": "STOP"
+    },
+    {
+      "versao": "V3",
+      "exemplo": "B",
+      "modelo": "gemini-3.5-flash-lite",
+      "data": "2026-11-13T14:30:40.277Z",
+      "latencia_ms": 6564,
+      "http": 200,
+      "json_valido": true,
+      "resposta": {
+        "pontosFortes": [
+          "A proposta inclui momentos de interação entre os alunos por meio de atividades em grupo.",
+          "O planejamento contempla a observação da participação da turma como forma de acompanhamento."
+        ],
+        "inconsistencias": [
+          "Os objetivos descritos como melhorar a matemática e aprender coisas são vagos e carecem de especificidade sobre quais conteúdos ou habilidades do 7º ano serão abordados.",
+          "A descrição das atividades é genérica e não detalha como o professor abordará os números nem qual será a tarefa específica realizada em grupo.",
+          "A avaliação por observação não especifica critérios claros ou instrumentos para mensurar o aprendizado em relação aos objetivos propostos."
+        ],
+        "sugestoes": [
+          "Detalhar nos objetivos quais conteúdos matemáticos específicos do 7º ano serão trabalhados, conectando-os às necessidades futuras dos estudantes.",
+          "Descrever detalhadamente a dinâmica da atividade em grupo e o tema da explicação do professor, relacionando-os diretamente ao objetivo de aprendizagem.",
+          "Estabelecer critérios claros e instrumentos de registro para a avaliação, alinhando-os às atividades em grupo e aos objetivos definidos."
+        ]
+      },
+      "finalizacao": "STOP"
+    }
+  ]
+}

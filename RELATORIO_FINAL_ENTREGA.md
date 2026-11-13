@@ -13,7 +13,7 @@ O projeto já possuía frontend React, Pages Function, chave local ignorada pelo
 - Não encontrei a chave na verificação dos arquivos preparados e build; isso não é garantia absoluta. O endpoint público continua bloqueado no código.
 
 ## Pendências
-A segurança para acesso hospedado exige autenticação, integração e validação real do Turnstile, limites distribuídos e duráveis de taxa e orçamento, proteção de previews e testes negativos. Nenhuma publicação pública ou deploy foi feita. Não há avaliação de especialista pedagógico, teste real adversarial ou avaliação estatística.
+A segurança para acesso hospedado exige autenticação, integração e validação real do Turnstile, limites distribuídos e duráveis de taxa e orçamento, proteção de previews e testes negativos. Na entrega inicial, não havia publicação pública nem deploy. O repositório foi posteriormente tornado público; não houve deploy. Não há avaliação de especialista pedagógico, teste real adversarial ou avaliação estatística.
 
 ## Preparação para entrevista
 Explique o caminho navegador → Function → Gemini → validação Zod → interface; diferenças entre prompt e esquema; por que JSON válido não garante veracidade; o uso de mocks e o que as sete chamadas reais comprovam; os limites contra prompt injection e abuso; e seu uso do Codex. Evite afirmar experiência profissional ou impacto em escola.
@@ -22,4 +22,4 @@ Explique o caminho navegador → Function → Gemini → validação Zod → int
 O repositório pode servir como evidência de desenvolvimento assistido por IA, integração real de API de LLM, experimentação exploratória de prompts, validação de JSON e testes. As alternativas exatas do formulário devem ser conferidas no próprio formulário; elas não foram verificadas nesta missão.
 
 ## GitHub
-Repositório privado criado em https://github.com/LuanGabriel12/ai-planning-reviewer e código enviado na branch main em 13/11/2026. Antes do envio, foram verificados os 34 arquivos do primeiro commit contra a chave local, sem encontrá-la; o arquivo .dev.vars permanece ignorado. Visibilidade Private e arquivos foram conferidos na interface do GitHub. Não houve publicação pública.
+Repositório privado criado em https://github.com/LuanGabriel12/ai-planning-reviewer e código enviado na branch main em 13/11/2026. Antes do envio, foram verificados os 34 arquivos do primeiro commit contra a chave local, sem encontrá-la; o arquivo .dev.vars permanece ignorado. Na entrega inicial, a visibilidade privada e os arquivos foram conferidos. Posteriormente, o repositório foi tornado público após confirmação de identidade; não houve deploy.

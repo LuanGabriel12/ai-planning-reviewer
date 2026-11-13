@@ -7,3 +7,8 @@ O formulário React envia os campos a uma Pages Function. O servidor valida a en
 No experimento, os seis casos da matriz retornaram JSON válido, mas respostas anteriores e algumas desta rodada contêm afirmações que precisam ser verificadas. Aprendi que aderir a um esquema é diferente de oferecer uma resposta factual e pedagogicamente adequada. Escolhi a V3 como ponto de partida por explicitar limites, sem reivindicar superioridade estatística.
 
 O endpoint hospedado segue bloqueado: faltam limites distribuídos, proteção de orçamento, integração completa de Turnstile e autenticação testada. O protótipo não foi validado por especialista nem aplicado em escolas.
+
+
+## Evolução multiagente
+
+Depois da primeira integração, usei assistência do Codex para separar analista, revisor e orquestrador e testar uma ferramenta local invocada pelo modelo. O revisor decide se a análise deve ser consolidada, revisada uma vez ou devolvida com ressalvas; a revisão adicional não é reavaliada. No caso real, o fluxo funcionou, mas deixou passar uma suposição: a revisão humana continua necessária. Detalhes e limites em [EXPERIMENTOS_AGENTES.md](EXPERIMENTOS_AGENTES.md).

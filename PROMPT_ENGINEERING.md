@@ -30,3 +30,8 @@ Uma matriz maior, repetições, avaliação independente e testes adversariais s
 ## Experimento anterior
 
 Uma rodada anterior, separada desta matriz, está em [resultados-reais.json](prompt-lab/resultados-reais.json). Ela não faz parte das seis novas chamadas. Naquela amostra, V1 alegou alinhamento à BNCC sem evidência e V2 expressou garantia indevida de compreensão.
+
+
+## Papéis e orquestração
+
+O analista distingue fatos e inferências, recebe dados delimitados e consulta um critério fictício via function calling; o revisor recebe o plano e a análise e identifica lacunas e possíveis invenções. O orquestrador aplica regras explícitas e limita a uma revisão adicional. Não há garantia de resistência a prompt injection. Veja [ARQUITETURA_MULTIAGENTE.md](ARQUITETURA_MULTIAGENTE.md) e [EXPERIMENTOS_AGENTES.md](EXPERIMENTOS_AGENTES.md), incluindo resultado real e uma suposição que o revisor não sinalizou. Os registros V1–V3 anteriores foram preservados.

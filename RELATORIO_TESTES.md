@@ -26,3 +26,8 @@ Capturas em `docs/imagens/`: formulário fictício, carregamento durante chamada
 `.dev.vars`, `.env` e derivados sensíveis estão ignorados; a chave não deve ser exposta em screenshots, relatórios ou logs. A varredura final compara a chave local em memória com os arquivos preparados e o build, sem imprimi-la, além de procurar padrões comuns. Nenhuma varredura garante ausência de todo segredo. O endpoint hospedado retorna 503 por padrão e não possui ainda controle de consumo distribuído. Turnstile está somente preparado como função isolada e não protege a rota atual.
 
 Uma tentativa anterior nesta sessão de trabalho histórica retornou 502 genérico antes de chamadas posteriores bem-sucedidas; a causa não foi identificada. A qualidade pedagógica e os resultados dos prompts não foram avaliados por especialista. Não houve deploy.
+
+
+## Atualização multiagente
+
+Após a evolução, executei novamente npm ci, TypeScript, build, compilação Pages, npm audit e a suíte: **45 testes passaram** em cinco arquivos; auditoria npm sem vulnerabilidades conhecidas. O build ainda apresenta dois avisos sobre anotações de comentários de Zod. Os testes automatizados usam mocks e cobrem ferramenta, decisões, limites, erros, timeout e cancelamento. Um fluxo real de três chamadas concluiu; duas tentativas anteriores falharam na validação. O teste real de prompt injection não foi realizado. Veja EXPERIMENTOS_AGENTES.md.

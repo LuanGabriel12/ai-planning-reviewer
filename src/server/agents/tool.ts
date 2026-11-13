@@ -1,0 +1,5 @@
+import {z} from 'zod';
+export const toolArgs=z.object({tema:z.enum(['objetivos','atividades','avaliacao','alinhamento'])}).strict();
+export const toolDeclaration={name:'consultar_criterio_ficticio',description:'Consulta exemplos locais de perguntas de revisão pedagógica, não normas.',parameters:{type:'OBJECT',properties:{tema:{type:'STRING',enum:['objetivos','atividades','avaliacao','alinhamento']}},required:['tema']}};
+const criteria={objetivos:'Exemplo: os objetivos identificam uma aprendizagem observável?',atividades:'Exemplo: as atividades permitem praticar a aprendizagem pretendida?',avaliacao:'Exemplo: a avaliação descreve evidências e critérios relacionados aos objetivos?',alinhamento:'Exemplo: objetivos, atividades e avaliação se relacionam explicitamente?'};
+export function runTool(name:string,args:unknown){if(name!=='consultar_criterio_ficticio')throw new Error('Ferramenta não autorizada');const input=toolArgs.parse(args);return {criterio:criteria[input.tema],natureza:'exemplo fictício, não é norma'};}

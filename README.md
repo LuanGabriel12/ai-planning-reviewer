@@ -6,6 +6,8 @@ Desenvolvi o projeto com assistência do Codex: usei a ferramenta para apoiar im
 
 > O resultado é uma sugestão gerada por IA: pode conter erros, não aprova nem reprova um planejamento e não substitui a avaliação de uma pessoa educadora. Use somente dados fictícios, sem informações pessoais ou escolares reais.
 
+Depois da integração inicial, decidi experimentar uma arquitetura com agentes especializados. Separei análise e revisão crítica, coordenadas por regras explícitas, para estudar como etapas distintas podem colaborar. Usei o Codex para auxiliar essa implementação e os testes.
+
 ## O problema e a solução
 
 Um planejamento pode ter objetivos, atividades e avaliação pouco conectados. O aplicativo recebe esses campos e solicita ao Gemini uma análise com **pontos fortes**, **possíveis inconsistências** e **sugestões de melhoria**. A pessoa pode editar e copiar o texto antes de utilizá-lo. Há estados de carregamento, mensagens de erro e um exemplo fictício.
@@ -14,10 +16,10 @@ Um planejamento pode ter objetivos, atividades e avaliação pouco conectados. O
 
 1. Preencha disciplina, ano, objetivos, atividades e avaliação, ou clique em **Usar exemplo fictício**.
 2. Clique em **Analisar com IA**. A função no servidor consulta o Gemini.
-3. Revise, edite e copie o resultado.
+3. Opcionalmente, marque **Usar análise multiagente** para acompanhar analista, ferramenta e revisor. Revise, edite e copie o resultado.
 
 ![Formulário fictício](docs/imagens/01-formulario.jpg)
-![Resultado de uma chamada real](docs/imagens/03-resultado-real.jpg)
+![Resultado de uma chamada multiagente real](docs/imagens/05-multiagente-real.jpg)
 
 Também há capturas de [carregamento](docs/imagens/02-carregamento.jpg) e [mobile](docs/imagens/04-mobile.jpg). O fluxo real foi testado localmente; não há deploy.
 
@@ -34,11 +36,15 @@ Cloudflare Pages Function → validação Zod → Gemini API REST
 
 A chave é lida no servidor e não é enviada ao frontend. O modelo utilizado nos testes foi `gemini-3.5-flash-lite`, no endpoint `v1beta/models/gemini-3.5-flash-lite:generateContent`. A API é instruída a produzir JSON e o servidor valida a estrutura antes de responder. Isso não garante correção factual nem qualidade pedagógica. A disponibilidade, o plano e os limites dependem da conta.
 
+No modo multiagente, o analista consulta uma ferramenta local por function calling, produz JSON e um revisor LLM avalia essa análise. O orquestrador decide consolidar, pedir no máximo uma revisão ou apresentar ressalvas. O uso da ferramenta é obrigatório no fluxo e o modelo escolhe um entre quatro temas. O máximo é quatro chamadas ao modelo por execução. A revisão adicional não é reavaliada. Mais detalhes em [ARQUITETURA_MULTIAGENTE.md](ARQUITETURA_MULTIAGENTE.md).
+
 A aplicação usa React, TypeScript, Vite, Zod e CSS. Os testes usam Vitest, Testing Library e mocks; Wrangler executa a Pages Function localmente. Não implementei Tailwind porque CSS convencional foi suficiente para este MVP.
 
 ## Experimento com prompts
 
 Comparei três versões de prompt em dois planejamentos fictícios: seis chamadas reais, com o mesmo modelo, temperatura 0,3 e esquema de saída. Todas retornaram HTTP 200 e passaram no esquema Zod. Antes do lote, confirmei no Google AI Studio que a chave estava no nível gratuito. As respostas completas, latências e critérios estão em [PROMPT_ENGINEERING.md](PROMPT_ENGINEERING.md) e [prompt-lab/matriz-2026-11-13.json](prompt-lab/matriz-2026-11-13.json).
+
+Uma comparação posterior entre agente único e multiagente está em [EXPERIMENTOS_AGENTES.md](EXPERIMENTOS_AGENTES.md). O fluxo multiagente funcionou com ferramenta real, mas incluiu uma suposição não sinalizada pelo revisor; não é evidência de superioridade.
 
 A versão 3 foi a escolha para este protótipo porque explicita limites e tratamento de lacunas, e a resposta do exemplo B apontou os três problemas pretendidos. É uma observação de uma única execução por caso, não prova estatística de superioridade ou avaliação profissional.
 
@@ -70,14 +76,14 @@ npx wrangler pages functions build --outfile .wrangler/verification.js
 npm audit
 ```
 
-A suíte automatizada não chama o Gemini e cobre validação, erros, timeout, bloqueio do endpoint hospedado e fluxo de interface com mocks. A matriz de prompts e a captura de resultado foram chamadas reais, separadas da suíte. Consulte [RELATORIO_TESTES.md](RELATORIO_TESTES.md).
+A suíte automatizada de 45 testes não chama o Gemini e cobre validação, erros, timeout, decisões do orquestrador, ferramenta, cancelamento, bloqueio do endpoint hospedado e fluxo de interface com mocks. A matriz de prompts e a captura de resultado foram chamadas reais, separadas da suíte. Consulte [RELATORIO_TESTES.md](RELATORIO_TESTES.md).
 
 ## Segurança e limitações
 
-O endpoint hospedado está **bloqueado no código**, inclusive se variáveis de produção forem definidas. O projeto ainda não possui limite de taxa distribuído nem teto global de chamadas ou custos. Antes de habilitar hospedagem é necessário implementar e validar esses controles, autenticação privada, Turnstile no cliente e validação no servidor, além de proteger previews. Há um verificador de Turnstile isolado e testado com mocks, mas ele **não está conectado ao fluxo** e não habilita o serviço.
+Os dois endpoints hospedados estão **bloqueados no código**, inclusive se variáveis de produção forem definidas. O projeto ainda não possui limite de taxa distribuído nem teto global de chamadas ou custos. Antes de habilitar hospedagem é necessário implementar e validar esses controles, autenticação privada, Turnstile no cliente e validação no servidor, além de proteger previews. Há um verificador de Turnstile isolado e testado com mocks, mas ele **não está conectado ao fluxo** e não habilita o serviço.
 
 Há validação de origem, tipos e tamanhos de entrada, limite de resposta do provedor, timeout e erros sem detalhes internos. A instrução de sistema trata o texto recebido como dado não confiável, mas isso não elimina prompt injection. Não há detector confiável de dados pessoais. O Google recebe o texto quando a chamada acontece. Consulte [CLOUDFLARE_DEPLOY_FUTURO.md](CLOUDFLARE_DEPLOY_FUTURO.md).
 
 ## Próximos passos
 
-Avaliar mais casos com uma pessoa educadora, testar instruções adversariais sem dados sensíveis, tornar controles de segurança e orçamento verificáveis, proteger ambiente de preview e então revisar uma possível publicação. Nenhum deploy ou publicação pública foi feito.
+Avaliar mais casos com uma pessoa educadora, testar instruções adversariais sem dados sensíveis, tornar controles de segurança e orçamento verificáveis, proteger ambiente de preview e então revisar uma possível publicação. Nenhum deploy foi feito.

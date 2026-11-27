@@ -1,32 +1,234 @@
-import React,{useState,useRef} from 'react';
-import {z} from 'zod';
-import {multiResultSchema} from './multi-schema';
-
-import {planSchema,reviewSchema,type Plan} from './schema';
+import React, { useRef, useState } from 'react';
+import { z } from 'zod';
+import { PlanForm } from './components/PlanForm';
+import { ResultPanel, type StructuredOutput } from './components/ResultPanel';
+import { EMPTY_PLAN } from './data/examples';
+import type { MultiResult } from './schemas/multi';
+import { planSchema, reviewSchema, type Plan } from './schemas/plan';
+import {
+  extractErrorMessage,
+  formatMultiReviewText,
+  formatSingleReviewText,
+  readNdjsonStream,
+} from './utils/formatReview';
 import './style.css';
-const initial:Plan={disciplina:'',ano:'',objetivos:'',atividades:'',avaliacao:''};
-const example:Plan={disciplina:'Ciências da Natureza',ano:'6º ano do ensino fundamental',objetivos:'Identificar as etapas do ciclo da água e relacioná-las a situações cotidianas.',atividades:'Em grupos, observar um experimento simples de evaporação e representar o ciclo da água em um desenho.',avaliacao:'Analisar os desenhos e solicitar uma explicação individual sobre cada etapa do ciclo.'};
-const fields:[keyof Plan,string,string,number][]=[['disciplina','Disciplina','Ex.: Ciências da Natureza',120],['ano','Ano escolar','Ex.: 6º ano do ensino fundamental',120],['objetivos','Objetivos de aprendizagem','O que se espera que a turma aprenda?',1200],['atividades','Atividades propostas','Como os objetivos serão trabalhados?',1800],['avaliacao','Metodologia de avaliação','Como a aprendizagem será acompanhada?',1200]];
-export function App(){
- const [plan,setPlan]=useState(initial),[loading,setLoading]=useState(false),[error,setError]=useState(''),[result,setResult]=useState(''),[copied,setCopied]=useState(false),[multi,setMulti]=useState(false),[progress,setProgress]=useState(''),[trace,setTrace]=useState<string[]>([]);
- const requestRef=useRef<AbortController|null>(null);
- async function submit(e:React.FormEvent){
-  e.preventDefault();setError('');setResult('');setTrace([]);setProgress('');setCopied(false);
-  const check=planSchema.safeParse(plan);if(!check.success){setError('Preencha todos os campos: disciplina e ano precisam de 2 caracteres; os demais, de 10.');return}
-  setLoading(true);const abort=new AbortController();requestRef.current=abort;
-  try{
-   const res=await fetch(multi?'/api/multi':'/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(check.data),signal:abort.signal});
-   if(!res.ok){const data=await res.json();throw Error((data as {error?:string}).error||'Não foi possível analisar.')}
-   let review: z.infer<typeof reviewSchema>;
-   if(multi){
-    if(!res.body)throw Error('Resposta sem conteúdo.');const reader=res.body.getReader(),decoder=new TextDecoder();let pending='',completed=false,total=0;
-    const eventSchema=z.discriminatedUnion('tipo',[z.object({tipo:z.literal('etapa'),etapa:z.string().max(100)}),z.object({tipo:z.literal('erro'),mensagem:z.string().max(300)}),z.object({tipo:z.literal('resultado'),resultado:multiResultSchema})]);
-    let final: z.infer<typeof multiResultSchema>|undefined;
-    while(true){const part=await reader.read();if(part.done)break;total+=part.value.length;if(total>100000)throw Error('Resposta excedeu o limite.');pending+=decoder.decode(part.value,{stream:true});let newline:number;while((newline=pending.indexOf('\n'))>=0){const line=pending.slice(0,newline);pending=pending.slice(newline+1);if(!line)continue;const event=eventSchema.parse(JSON.parse(line));if(event.tipo==='etapa'){setProgress(event.etapa);setTrace(old=>[...old,event.etapa]);}else if(event.tipo==='erro')throw Error(event.mensagem);else{final=event.resultado;completed=true;}}}
-    if(!completed||!final)throw Error('A análise não foi concluída.');review=final.analise;setTrace([...final.etapas,'Chamadas ao modelo: '+final.chamadas,'Ferramenta local: '+(final.ferramenta?'utilizada':'não utilizada'),'Estado: '+final.estado,...final.ressalvas.map(x=>'Ressalva: '+x)]);
-    setResult('PONTOS FORTES\n'+review.pontosFortes.map(x=>'• '+x).join('\n')+'\n\nPOSSÍVEIS INCONSISTÊNCIAS\n'+review.inconsistencias.map(x=>'• '+x).join('\n')+'\n\nSUGESTÕES DE MELHORIA\n'+review.sugestoes.map(x=>'• '+x).join('\n')+'\n\nFATOS INFORMADOS\n'+final.analise.fatosInformados.map(x=>'• '+x).join('\n')+'\n\nINFERÊNCIAS\n'+final.analise.inferencias.map(x=>'• '+x).join('\n'));
-   }else{review=reviewSchema.parse(await res.json());setResult('PONTOS FORTES\n'+review.pontosFortes.map(x=>'• '+x).join('\n')+'\n\nPOSSÍVEIS INCONSISTÊNCIAS\n'+review.inconsistencias.map(x=>'• '+x).join('\n')+'\n\nSUGESTÕES DE MELHORIA\n'+review.sugestoes.map(x=>'• '+x).join('\n'));}
-  }catch(e){setError(abort.signal.aborted?'Análise cancelada.':e instanceof z.ZodError?'A resposta recebida não passou na validação.':e instanceof Error?e.message:'Erro de conexão.');}finally{requestRef.current=null;setLoading(false)}
- }
 
- return <><header><div className="brand"><span className="brandmark">✳</span><span>AI Planning <b>Reviewer</b></span></div><span className="badge">DEMONSTRAÇÃO</span></header><main><section className="intro"><div className="eyebrow"><span></span> ASSISTENTE PARA EDUCADORES</div><h1>Boas ideias merecem<br/><em>um novo olhar.</em></h1><p>Uma ferramenta de apoio para refletir sobre planejamentos pedagógicos e descobrir oportunidades de melhoria.</p><div className="notice"><b>↗ &nbsp; Antes de começar</b><br/>Use somente informações fictícias. Não inclua nomes, dados pessoais ou informações de escolas reais.</div></section><div className="workspace"><section className="card"><div className="cardhead"><div><span className="step">01 / PLANEJAMENTO</span><h2>Conte sobre sua aula</h2><p>Preencha os campos para receber uma análise contextualizada.</p></div><button className="example" type="button" disabled={loading} onClick={()=>{setPlan(example);setError('');setResult('')}}>Usar exemplo fictício ↗</button></div><form onSubmit={submit}><label className="mode"><input type="checkbox" checked={multi} disabled={loading} onChange={e=>setMulti(e.target.checked)}/> Usar análise multiagente (mais chamadas à IA)</label><fieldset disabled={loading} className="formgrid">{fields.map(([key,label,placeholder,max],i)=><label className={i>1?'wide':''} key={key}><span>{label} <i>*</i></span>{i<2?<input value={plan[key]} maxLength={max} placeholder={placeholder} onChange={e=>setPlan({...plan,[key]:e.target.value})}/>:<textarea rows={3} value={plan[key]} maxLength={max} placeholder={placeholder} onChange={e=>setPlan({...plan,[key]:e.target.value})}/>}<small>{plan[key].length} / {max}</small></label>)}</fieldset>{error&&<div role="alert" className="error">{error}</div>}<div className="submitrow"><button className="primary" disabled={loading}>{loading?'Analisando…':'✳  Analisar com IA'} <span>→</span></button>{loading&&<button type="button" className="copy" onClick={()=>requestRef.current?.abort()}>Cancelar</button>}<small>A análise pode levar alguns segundos.</small></div></form></section><section className="card result"><span className="step">02 / ANÁLISE</span><h2>Seu novo olhar</h2><p>Revise as sugestões e adapte o que fizer sentido para o seu contexto.</p>{loading?<div className="empty" role="status"><div className="spinner"/>{progress||'Preparando sua análise…'}</div>:result?<><label className="resultlabel" htmlFor="review">Análise editável</label><textarea id="review" className="review" value={result} onChange={e=>{setResult(e.target.value);setCopied(false)}}/><button className="copy" onClick={async()=>{try{await navigator.clipboard.writeText(result);setCopied(true)}catch{setError('Não foi possível copiar. Selecione o texto e copie manualmente.')}}}>{copied?'Copiado ✓':'Copiar sugestões ↗'}</button></>:<div className="empty"><div className="emptyicon">✳</div><b>Sua análise aparecerá aqui</b><span>Preencha o planejamento ao lado ou experimente o exemplo fictício.</span></div>}{trace.length>0&&<div className="disclaimer" aria-live="polite"><b>Caminho da análise</b>{trace.map((item,i)=><div key={i}>{item}</div>)}</div>}<div className="disclaimer"><b>Uma ferramenta de apoio.</b> As sugestões são geradas por IA, podem conter erros e não substituem a avaliação de uma pessoa educadora.</div></section></div><footer><span>✳ &nbsp; AI Planning Reviewer</span><span>Feito para apoiar a reflexão, não para tomar decisões.</span></footer></main></>}
+export function App() {
+  const [plan, setPlan] = useState<Plan>(EMPTY_PLAN);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [structured, setStructured] = useState<StructuredOutput | null>(null);
+  const [resultText, setResultText] = useState('');
+  const [originalText, setOriginalText] = useState('');
+  const [copied, setCopied] = useState(false);
+  const [multi, setMulti] = useState(false);
+  const [progress, setProgress] = useState('');
+  const [trace, setTrace] = useState<string[]>([]);
+
+  const requestRef = useRef<AbortController | null>(null);
+
+  function clearFeedback() {
+    setError('');
+    setStructured(null);
+    setResultText('');
+    setOriginalText('');
+    setTrace([]);
+    setProgress('');
+    setCopied(false);
+  }
+
+  function handleSelectExample(examplePlan: Plan) {
+    setPlan(examplePlan);
+    clearFeedback();
+  }
+
+  function handleClearForm() {
+    setPlan(EMPTY_PLAN);
+    clearFeedback();
+  }
+
+  async function handleSubmit(event: React.FormEvent) {
+    event.preventDefault();
+    clearFeedback();
+
+    const validation = planSchema.safeParse(plan);
+    if (!validation.success) {
+      setError(
+        'Preencha todos os campos: disciplina e ano precisam de pelo menos 2 caracteres; objetivos, atividades e avaliação precisam de pelo menos 10.',
+      );
+      return;
+    }
+
+    setLoading(true);
+    const controller = new AbortController();
+    requestRef.current = controller;
+
+    try {
+      const endpoint = multi ? '/api/multi' : '/api/analyze';
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(validation.data),
+        signal: controller.signal,
+      });
+
+      if (!response.ok) {
+        const message = await extractErrorMessage(response, 'Não foi possível analisar.');
+        throw new Error(message);
+      }
+
+      if (multi) {
+        if (!response.body) {
+          throw new Error('Resposta sem conteúdo.');
+        }
+
+        let finalResult: MultiResult | undefined;
+
+        await readNdjsonStream(response.body, (streamEvent) => {
+          if (streamEvent.tipo === 'etapa') {
+            setProgress(streamEvent.etapa);
+            setTrace((previous) => [...previous, streamEvent.etapa]);
+          } else if (streamEvent.tipo === 'erro') {
+            throw new Error(streamEvent.mensagem);
+          } else {
+            finalResult = streamEvent.resultado;
+          }
+        });
+
+        if (!finalResult) {
+          throw new Error('A análise não foi concluída.');
+        }
+
+        const formatted = formatMultiReviewText(finalResult);
+        setStructured({ mode: 'multi', result: finalResult });
+        setResultText(formatted);
+        setOriginalText(formatted);
+
+        const toolSummary = finalResult.ferramentaDetalhes
+          ? `Ferramenta local: ${finalResult.ferramentaDetalhes.nome} (${finalResult.ferramentaDetalhes.tema} — ${finalResult.ferramentaDetalhes.natureza})`
+          : `Ferramenta local: ${finalResult.ferramenta ? 'utilizada' : 'não utilizada'}`;
+
+        setTrace([
+          ...finalResult.etapas,
+          `Chamadas ao modelo: ${finalResult.chamadas}`,
+          toolSummary,
+          `Estado: ${finalResult.estado}`,
+          ...finalResult.ressalvas.map((item) => `Ressalva: ${item}`),
+        ]);
+      } else {
+        const review = reviewSchema.parse(await response.json());
+        const formatted = formatSingleReviewText(review);
+        setStructured({ mode: 'single', review });
+        setResultText(formatted);
+        setOriginalText(formatted);
+        setTrace([
+          'Modo: agente único',
+          'Chamadas ao modelo: 1',
+          'Validação estrutural Zod: aprovada',
+        ]);
+      }
+    } catch (caught) {
+      if (controller.signal.aborted) {
+        setError('Análise cancelada.');
+      } else if (caught instanceof z.ZodError) {
+        setError('A resposta recebida não passou na validação.');
+      } else if (caught instanceof Error) {
+        setError(caught.message);
+      } else {
+        setError('Erro de conexão.');
+      }
+    } finally {
+      requestRef.current = null;
+      setLoading(false);
+    }
+  }
+
+  async function handleCopy() {
+    try {
+      await navigator.clipboard.writeText(resultText);
+      setCopied(true);
+    } catch {
+      setError('Não foi possível copiar. Selecione o texto e copie manualmente.');
+    }
+  }
+
+  return (
+    <>
+      <header>
+        <div className="brand">
+          <span className="brandmark" aria-hidden="true">
+            ✳
+          </span>
+          <span>
+            AI Planning <b>Reviewer</b>
+          </span>
+        </div>
+        <span className="badge">DEMONSTRAÇÃO LOCAL · DADOS FICTÍCIOS</span>
+      </header>
+
+      <main>
+        <section className="intro">
+          <div className="eyebrow">
+            <span aria-hidden="true" /> ASSISTENTE DE REFLEXÃO PEDAGÓGICA
+          </div>
+          <h1>
+            Boas ideias merecem
+            <br />
+            <em>um novo olhar.</em>
+          </h1>
+          <p>
+            Protótipo de engenharia de aplicações com LLM para apoiar a reflexão sobre
+            planejamentos pedagógicos fictícios — comparando modo agente único e orquestração
+            multiagente com function calling e validação Zod.
+          </p>
+          <div className="notice" role="note">
+            <strong>↗ &nbsp; Antes de começar</strong>
+            <br />
+            Use somente informações fictícias. Não inclua nomes, dados pessoais ou informações de
+            escolas reais. Este sistema não aprova nem reprova planejamentos.
+          </div>
+        </section>
+
+        <div className="workspace">
+          <PlanForm
+            plan={plan}
+            multi={multi}
+            loading={loading}
+            error={error}
+            onChangePlan={setPlan}
+            onSelectExample={handleSelectExample}
+            onClear={handleClearForm}
+            onToggleMulti={setMulti}
+            onSubmit={handleSubmit}
+            onCancel={() => requestRef.current?.abort()}
+          />
+
+          <ResultPanel
+            loading={loading}
+            multi={multi}
+            progress={progress}
+            structured={structured}
+            editableText={resultText}
+            originalText={originalText}
+            trace={trace}
+            copied={copied}
+            onChangeText={(nextText) => {
+              setResultText(nextText);
+              setCopied(false);
+            }}
+            onResetText={() => {
+              setResultText(originalText);
+              setCopied(false);
+            }}
+            onCopy={handleCopy}
+          />
+        </div>
+
+        <footer>
+          <span>✳ &nbsp; AI Planning Reviewer V2</span>
+          <span>Feito para apoiar a reflexão, não para tomar decisões ou substituir educadores.</span>
+        </footer>
+      </main>
+    </>
+  );
+}

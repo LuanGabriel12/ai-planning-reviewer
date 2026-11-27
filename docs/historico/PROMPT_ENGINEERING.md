@@ -10,7 +10,7 @@ Em 13/11/2026, confirmei que a chave estava no nível gratuito no Google AI Stud
 - **V2 estruturada:** pede comparação entre objetivos, atividades e avaliação, identificação de lacunas e proíbe aprovação/reprovação.
 - **V3 aprimorada:** além da tarefa, usa instrução de sistema para tratar os campos como dados, reconhecer incertezas, evitar invenções e afirmações normativas e preservar revisão humana. É a versão usada pela aplicação.
 
-Os prompts exatos e exemplos estão em [executar-matriz.mjs](prompt-lab/executar-matriz.mjs); os resultados e tempos registrados estão em [matriz-2026-11-13.json](prompt-lab/matriz-2026-11-13.json). O script realiza chamadas reais e só deve ser executado após confirmar o nível gratuito; pode consumir cota. A indicação manual do plano no script não é uma garantia técnica de gratuidade.
+Os prompts exatos e exemplos estão em [executar-matriz.mjs](../../prompt-lab/executar-matriz.mjs); os resultados e tempos registrados estão em [matriz-2026-11-13.json](../../prompt-lab/matriz-2026-11-13.json). O script realiza chamadas reais e só deve ser executado após confirmar o nível gratuito; pode consumir cota. A indicação manual do plano no script não é uma garantia técnica de gratuidade.
 
 ## Resultados observados
 
@@ -29,7 +29,7 @@ Uma matriz maior, repetições, avaliação independente e testes adversariais s
 
 ## Experimento anterior
 
-Uma rodada anterior, separada desta matriz, está em [resultados-reais.json](prompt-lab/resultados-reais.json). Ela não faz parte das seis novas chamadas. Naquela amostra, V1 alegou alinhamento à BNCC sem evidência e V2 expressou garantia indevida de compreensão.
+Uma rodada anterior, separada desta matriz, está em [resultados-reais.json](../../prompt-lab/resultados-reais.json). Ela não faz parte das seis novas chamadas. Naquela amostra, V1 alegou alinhamento à BNCC sem evidência e V2 expressou garantia indevida de compreensão.
 
 
 ## Papéis e orquestração

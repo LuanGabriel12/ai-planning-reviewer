@@ -86,4 +86,4 @@ Há validação de origem, tipos e tamanhos de entrada, limite de resposta do pr
 
 ## Próximos passos
 
-Avaliar mais casos com uma pessoa educadora, testar instruções adversariais sem dados sensíveis, tornar controles de segurança e orçamento verificáveis, proteger ambiente de preview e então revisar uma possível publicação. Nenhum deploy foi feito.
+Avaliar mais casos com uma pessoa educadora, testar instruções adversariais sem dados sensíveis, tornar controles de segurança e orçamento verificáveis, proteger ambiente de preview e então revisar uma possível publicação. Nenhum deploy foi feito...

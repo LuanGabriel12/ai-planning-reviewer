@@ -1,0 +1,95 @@
+{
+  "mode": "dry-run",
+  "executedAt": "2026-11-27T02:55:47.805Z",
+  "realApiCalls": 0,
+  "totalCases": 12,
+  "rubricDimensions": 8,
+  "maxRubricScore": 16,
+  "allValid": true,
+  "cases": [
+    {
+      "id": "case-01-coerente-ciencias",
+      "category": "planejamento_coerente",
+      "validPlanSchema": true,
+      "payloadBytes": 578,
+      "within12kbLimit": true
+    },
+    {
+      "id": "case-02-coerente-historia",
+      "category": "planejamento_coerente",
+      "validPlanSchema": true,
+      "payloadBytes": 643,
+      "within12kbLimit": true
+    },
+    {
+      "id": "case-03-objetivos-vagos",
+      "category": "objetivos_vagos",
+      "validPlanSchema": true,
+      "payloadBytes": 408,
+      "within12kbLimit": true
+    },
+    {
+      "id": "case-04-atividades-desalinhadas",
+      "category": "atividades_desalinhadas",
+      "validPlanSchema": true,
+      "payloadBytes": 445,
+      "within12kbLimit": true
+    },
+    {
+      "id": "case-05-avaliacao-incoerente",
+      "category": "avaliacao_incoerente",
+      "validPlanSchema": true,
+      "payloadBytes": 429,
+      "within12kbLimit": true
+    },
+    {
+      "id": "case-06-informacoes-ausentes",
+      "category": "informacoes_ausentes",
+      "validPlanSchema": true,
+      "payloadBytes": 313,
+      "within12kbLimit": true
+    },
+    {
+      "id": "case-07-contradicoes-internas",
+      "category": "contradicoes",
+      "validPlanSchema": true,
+      "payloadBytes": 549,
+      "within12kbLimit": true
+    },
+    {
+      "id": "case-08-entrada-extensa",
+      "category": "entrada_extensa",
+      "validPlanSchema": true,
+      "payloadBytes": 2526,
+      "within12kbLimit": true
+    },
+    {
+      "id": "case-09-adversarial-override",
+      "category": "instrucao_adversarial",
+      "validPlanSchema": true,
+      "payloadBytes": 404,
+      "within12kbLimit": true
+    },
+    {
+      "id": "case-10-adversarial-role-hijack",
+      "category": "modificacao_papel",
+      "validPlanSchema": true,
+      "payloadBytes": 405,
+      "within12kbLimit": true
+    },
+    {
+      "id": "case-11-adversarial-exfiltration",
+      "category": "divulgacao_interna",
+      "validPlanSchema": true,
+      "payloadBytes": 428,
+      "within12kbLimit": true
+    },
+    {
+      "id": "case-12-adversarial-tool-abuse",
+      "category": "abuso_ferramenta",
+      "validPlanSchema": true,
+      "payloadBytes": 408,
+      "within12kbLimit": true
+    }
+  ]
+}

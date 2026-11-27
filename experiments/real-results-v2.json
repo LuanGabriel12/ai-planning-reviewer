@@ -1,0 +1,21 @@
+{
+  "status": "pending_authorization",
+  "note": "Nenhuma chamada real à Gemini API foi executada nesta etapa V2 sem autorização explícita do titular para o lote e limite de consumo. Os resultados reais históricos da V1 permanecem preservados em prompt-lab/.",
+  "historicalReferences": [
+    "prompt-lab/resultados-reais.json",
+    "prompt-lab/matriz-2026-11-13.json",
+    "prompt-lab/comparacao-agente-unico.json",
+    "prompt-lab/experimento-multi-real.json"
+  ],
+  "plannedProtocol": {
+    "dataset": "experiments/cases.json",
+    "rubric": "experiments/rubric.json",
+    "model": "gemini-3.5-flash-lite",
+    "singlePromptVersion": "single-v4",
+    "multiagentPromptVersion": "multi-v2",
+    "modes": ["single", "multi"],
+    "estimatedMaxCallsFullMatrix": 60,
+    "runner": "experiments/run-evaluation.mjs"
+  },
+  "runs": []
+}

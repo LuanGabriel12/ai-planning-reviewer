@@ -8,8 +8,8 @@ Formato válido; sugestões compreensíveis e úteis; reconhecimento de lacunas;
 
 Em 13/11/2026 usei o mesmo planejamento fictício de Ciências e o modelo `gemini-3.5-flash-lite`. O Google AI Studio identificou a chave como nível gratuito. A página de limites mostrou 15 requisições/minuto, 250 mil tokens de entrada/minuto e 500 requisições/dia para o projeto naquele momento; o painel apresenta máximos históricos, não uma garantia de capacidade disponível. Consultei a [tabela de preços](https://ai.google.dev/gemini-api/docs/pricing): entrada e saída são gratuitas no nível gratuito para esse modelo, sujeitas à disponibilidade e limites. Não ativei cobrança.
 
-- [Agente único: resposta real](prompt-lab/comparacao-agente-unico.json): uma chamada, HTTP 200. Apontou ausência de tempo/recursos e critérios específicos, e sugeriu rubrica e conexão com o cotidiano.
-- [Multiagente: resultado e etapas reais](prompt-lab/experimento-multi-real.json): o modelo solicitou a ferramenta local; o servidor a executou e devolveu o resultado; o analista gerou JSON; o revisor analisou em outra chamada; o orquestrador consolidou. O fluxo bem-sucedido registrou 3 chamadas. A [captura](docs/imagens/05-multiagente-real.jpg) mostra a interface e o caminho operacional.
+- [Agente único: resposta real](../../prompt-lab/comparacao-agente-unico.json): uma chamada, HTTP 200. Apontou ausência de tempo/recursos e critérios específicos, e sugeriu rubrica e conexão com o cotidiano.
+- [Multiagente: resultado e etapas reais](../../prompt-lab/experimento-multi-real.json): o modelo solicitou a ferramenta local; o servidor a executou e devolveu o resultado; o analista gerou JSON; o revisor analisou em outra chamada; o orquestrador consolidou. O fluxo bem-sucedido registrou 3 chamadas. A [captura](../imagens/05-multiagente-real.jpg) mostra a interface e o caminho operacional.
 
 ## Comparação e falhas
 
